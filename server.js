@@ -57,13 +57,13 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.get('/heroes', function (req, res, next) {
-  findAllHeroes().then(collection => {
-    res.send(collection.heroes)
-  }).catch(err => {
-    return next(err)
-  })
-})
+// app.get('/heroes', function (req, res, next) {
+//   findAllHeroes().then(collection => {
+//     res.send(collection.heroes)
+//   }).catch(err => {
+//     return next(err)
+//   })
+// })
 
 app.get('/heroes/:id', function (req, res, next) {
   const id = req.params.id;
@@ -74,6 +74,19 @@ app.get('/heroes/:id', function (req, res, next) {
     } else {
       res.status(404).send('Hero not found')
     }
+  }).catch(err => {
+    return next(err)
+  })
+})
+
+app.get('/heroes', function(req, res, next){
+  req.query.q = req.query.q || '';
+  req.query._limit = req.query._limit;
+  const query = req.query.q.toLowerCase();
+  const limit = req.query._limit;
+  findAllHeroes().then(collection => {
+    const heroes = collection.heroes.filter(hero => hero.superhero.toLowerCase().includes(query)).slice(0, limit);
+    res.send(heroes)
   }).catch(err => {
     return next(err)
   })
