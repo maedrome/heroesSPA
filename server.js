@@ -89,7 +89,7 @@ app.get('/', function (req, res) {
 //   })
 // })
 
-app.get('/heroes/:id', function (req, res, next) {
+app.get('/api/heroes/:id', function (req, res, next) {
   const id = req.params.id;
   findAllHeroes().then(collection => {
     const hero = collection.heroes.find(hero => hero.id === id)
@@ -103,7 +103,7 @@ app.get('/heroes/:id', function (req, res, next) {
   })
 })
 
-app.get('/heroes', function(req, res, next){
+app.get('/api/heroes', function(req, res, next){
   req.query.q = req.query.q || '';
   req.query._limit = req.query._limit;
   const query = req.query.q.toLowerCase();
@@ -116,7 +116,7 @@ app.get('/heroes', function(req, res, next){
   })
 })
 
-app.post('/heroes', function (req, res, next){
+app.post('/api/heroes', function (req, res, next){
   findAllHeroes().then(collection => {
     collection.heroes.push(req.body);
     collection.save().then(data => res.send(data.heroes[data.heroes.length-1])).catch(err => {
@@ -127,7 +127,7 @@ app.post('/heroes', function (req, res, next){
   })
 })
 
-app.patch('/heroes/:id', function (req, res, next){
+app.patch('/api/heroes/:id', function (req, res, next){
   findAllHeroes().then(collection => {
     const hero = collection.heroes.filter(hero => hero.id==req.params.id)[0];
     for (const key in req.body) {
@@ -143,7 +143,7 @@ app.patch('/heroes/:id', function (req, res, next){
   })
 })
 
-app.delete('/heroes/:id', function(req, res, next){
+app.delete('/api/heroes/:id', function(req, res, next){
   findAllHeroes().then(collection => {
     collection.heroes = collection.heroes.filter(hero => hero.id !== req.params.id);
     collection.save().then(data => res.send(data.heroes)).catch(err => {
@@ -154,7 +154,7 @@ app.delete('/heroes/:id', function(req, res, next){
   })
 })
 
-app.post('/login', function (req, res, next){
+app.post('/api/login', function (req, res, next){
   const {email, pass} = req.body;
   findAllUsers().then(collection => { 
     const currentUser = collection.users.find(user => user.email === email && user.pass === pass);
@@ -169,7 +169,7 @@ app.post('/login', function (req, res, next){
   return next(err)
 })})
 
-app.get('/login/:hash', function (req, res, next){
+app.get('/api/login/:hash', function (req, res, next){
   Tokens.findOne({hash: req.params.hash}).then(data => {
     res.send(data.user)
   }).catch(err => {
