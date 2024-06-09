@@ -2,6 +2,7 @@ let bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path')
 let mongoose;
 try {
   mongoose = require("mongoose");
@@ -34,7 +35,7 @@ const app = express()
 mongoose.connect(process.env.MONGO_URI_COLLECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 let userSchema = new mongoose.Schema({
   id: { type: String, required: true },
@@ -77,9 +78,6 @@ const findAllHeroes = async () => Heroes.findById('6660c4785617929046221a3e');
 const findAllUsers = async () => Users.findById('665801cb5617929046e6fc1c');
  
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
 
 // app.get('/heroes', function (req, res, next) {
 //   findAllHeroes().then(collection => {
@@ -177,6 +175,9 @@ app.get('/api/login/:hash', function (req, res, next){
   })
 })
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 
 app.listen(3000)
