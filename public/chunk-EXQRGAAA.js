@@ -1,0 +1,1 @@
+import{la as e}from"./chunk-QDOQSJTN.js";var a=(()=>{let i=class i{transform(t){return!t?.id&&!t?.alt_img||!t===void 0||t?.alt_img===""?"assets/no-image.png":t.alt_img?`${t.alt_img}`:`assets/heroes/${t.id}.jpg`}};i.\u0275fac=function(n){return new(n||i)},i.\u0275pipe=e({name:"heroImage",type:i,pure:!0,standalone:!0});let r=i;return r})();export{a};
