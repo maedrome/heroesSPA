@@ -2,8 +2,10 @@
   "users": [
     {
       "id": 1,
-      "usuario": "John Doe",
-      "email": "john.due@gmail.com"
+      "email": "redo@heroeapp.com",
+      "user": "SrRedo",
+      "pass": "test"
+      
     }
   ],
   "heroes": [
@@ -166,6 +168,13 @@
       "alter_ego": "Norrin Radd",
       "first_appearance": "The Fantastic Four #48",
       "characters": "Norrin Radd"
-    }
+    },
+    {
+      "id":"one-tatsumaki",
+      "superhero":"Tornado of Terror",
+      "publisher":"One Comics",
+      "alter_ego":"Tatsumaki",
+      "first_appearance":"A New Wind Blows",
+      "characters":"Tatsumaki"}
   ]
 }
